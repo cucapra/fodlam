@@ -1,4 +1,3 @@
-Model,AlexNet,AlexNet,AlexNet,VGG16,VGG16,VGG16,NT-,NT-,NT-
-Layer,FC6,FC7,FC8,FC6,FC7,FC8,We,Wd,LSTM
+Layer,AlexNet FC6,AlexNet FC7,AlexNet FC8,VGG16 FC6,VGG16 FC7,VGG16 FC8,NT- We,NT- Wd,NT- LSTM
 Theoretical Time,28.1,11.7,8.9,28.1,7.9,7.3,5.2,13.0,6.5
 Actual Time,30.3,12.2,9.9,34.4,8.7,8.4,8.0,13.9,7.5
