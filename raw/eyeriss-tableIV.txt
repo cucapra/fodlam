@@ -1,0 +1,103 @@
+ 
+
+Technology
+
+TSMC 65nm LP IPQM
+
+ 
+
+Chip Size
+
+4.0 mm x 4.0 mm
+
+ 
+
+Core Area
+
+35 mm x 35 mm
+
+ 
+
+Gate Count (logic only)
+
+ll76k (2-inpm NAND)
+
+ 
+
+On-Chip SRAM
+
+181.5K bytes
+
+ 
+
+Number of PEs
+
+168
+
+ 
+
+Global Buffer
+
+IOS‘OK bytes (SRAM)
+
+ 
+
+Scratch Pads
+(per PE)
+
+ﬁner wcigms: 44s bytcs (SRAM)
+feature maps: 24 bytes (Registers)
+parlial sums: 48 byles (Regislers)
+
+ 
+
+Supply Voltage
+
+core: 0,8271‘17 V
+1/0: 1.8 V
+
+ 
+
+Clock Rate
+
+core: 1007250 MHZ
+link: up 10 90 MHz
+
+ 
+
+Peak Throughput
+
+16‘842‘0 GMACS
+
+ 
+
+Arithmetic Precision
+
+16-bit ﬁxed-poinl
+
+ 
+
+ 
+
+Namely Supported
+CNN Shapes
+
+ 
+
+ﬁller height (H): 1712
+
+ﬁlter width (5): 32
+
+num. of ﬁlms (M): 71024
+um, of channels (C): 1—1024
+venical smde: 1,2,4
+horizomul S&ridc: Hz
+
+ 
+
+ 
+
+ 
+
+ 
+

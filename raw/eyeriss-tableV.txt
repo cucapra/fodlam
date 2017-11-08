@@ -1,0 +1,49 @@
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Lav" iner 10ml Proceseing Num. of Num. «1' Zem in Glnhnl Buﬂ'. DRAM
+
+’ (mW) Lamncy (Ills) Latency (Ills) MACS Active PEs Ifmaps (%) Accesses Awesses
+
+CONVI 332 209 165 0420 154(92%) (mm; 18.5 MB 50 MB
+CONVZ 288 41.9 39 2 0.906 135 (80%) 38.7% 77.6 MB
+CONV3 266 23.6 21.3 0.600 156 (93%) 72. % 5 2 MB
+CONV4 235 18.4 16.0 0.455 156 (93%) 79.3 70 37 4 MB
+CONVS 236 10.5 10.0 0.300 [56 (93%) 77.6% 24 9 MB
+Total 278 115.3 1035 2.666 143 (88%) 5753% 208.5 MB
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+

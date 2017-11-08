@@ -1,0 +1,63 @@
+ 
+
+CNN Shape Parameom
+
+RS Dataﬂuw Mapping Paramenm
+
+Global Buffer Allocation
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+I‘m' H/W‘ R/S E/F C M U m n e p q r 2 ifmup psum
+CONVI 227 11 55 3 96 4 96 1 7 16 1 1 2 155103 721103
+CONVZ 3| 5 27 48 256 I 64 l 27 16 2 l l 3,8KE 9LIKB
+CONva 15 3 13 256 334 1 64 4 13 16 4 1 4 70103 345105
+CONVA 15 3 13 192 3134 1 64 4 13 16 3 2 2 1115103 84.5KB
+CONVS 15 3 13 192 256 1 64 4 13 16 3 2 2 105105 345103
+
+ 
+
+ 
+

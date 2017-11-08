@@ -1,0 +1,42 @@
+"",Power (%)(mW),(%),Area (μm2),,
+Total,9.157,,"638,024",,
+memory,5.416,(59.15%),"594,786",,(93.22%)
+clock network,1.874,(20.46%),866,,(0.14%)
+register,1.026,(11.20%),"9,465",,(1.48%)
+combinational,0.841,(9.18%),"8,946",,(1.40%)
+filler cell,,,"23,961",,(3.76%)
+Act queue,0.112,(1.23%),758,,(0.12%)
+PtrRead,1.807,(19.73%),"121,849",,(19.10%)
+SpmatRead,4.955,(54.11%),"469,412",,(73.57%)
+ArithmUnit,1.162,(12.68%),"3,110",,(0.49%)
+ActRW,1.122,(12.25%),"18,934",,(2.97%)
+filler cell,,,"23,961",,(3.76%)
+NT-Platform Batch Matrix,AlexNet,VGG16,,
+Size Type,FC6 FC7,FC8 FC6 FC7,FC8 We Wd,LSTM
+470.5CPU 1 dense,7516.2 6187.1,1134.9 35022.8 5372.8,774.2 605.0 1361.4,
+260.0(Core sparse,3066.5 1282.1,890.5 3774.3 545.1,777.3 261.2 437.4,
+28.8i7-5930k) 64 dense,318.4 188.9,45.8 1056.0 188.3,45.7 28.7 69.0,
+sparse,1417.6 682.1,407.7 1780.3 274.9,363.1 117.7 176.4,107.4
+51.91GPU dense sparse,541.5 134.8 243.0 65.8,80.5 54.6 1467.8 167.0 243.0 39.8,80.5 48.0 65 17.7 90.1 41.1,18.5
+"(Titan X) 2.564 dense",19.8 8.9,5.9 53.6 8.9,5.9 3.2 2.3,
+sparse,94.6 51.5,23.2 121.5 24.4,22.0 10.9 11.0,9.0
+956.91mGPU dense sparse,12437.2 2879.3 5765.0 1256.5,2252.1 837.0 35427.0 4377.2 5544.3 626.3,2243.1 745.1 1316 240.6 2565.5 570.6,315
+"(Tegra K1) 95.264 dense",1663.6 2056.8,298.0 2001.4 2050.7,483.9 87.8 956.3,
+sparse,4003.9 1372.8,576.7 8024.8 660.2,544.1 236.3 187.7,186.5
+EIE Theoretical Actual Time Time,28.1 30.3 11.7 12.2,8.9 9.9 28.1 34.4 7.9 8.7,7.3 8.4 5.2 8.0 13.0 13.9,6.57.5
+Platform,Core-i7,GeForce,Tegra,A-Eye,Da-,True-,EIE,EIE
+"",5930K,Titan X,K1,[14],DianNao,North,"(ours,","(28nm,"
+"",,,,,[11],[40],64PE),256PE)
+Year,2014,2015,2014,2015,2014,2014,2016,2016
+Platform Type,CPU,GPU,mGPU,FPGA,ASIC,ASIC,ASIC,ASIC
+Technology,22nm,28nm,28nm,28nm,28nm,28nm,45nm,28nm
+Clock (MHz),3500,1075,852,150,606,Async,800,1200
+Memory type,DRAM,DRAM,DRAM,DRAM,eDRAM,SRAM,SRAM,SRAM
+Max DNN model size (#Params),<16G,<3G,<500M,<500M,18M,256M,84M,336M
+Quantization Stategy,32-bit,32-bit,32-bit,16-bit,16-bit,1-bit,4-bit,4-bit
+"",float,float,float,fixed,fixed,fixed,fixed,fixed
+Area (mm2),356,601,-,-,67.7,430,40.8,63.8
+Power (W),73,159,5.1,9.63,15.97,0.18,0.59,2.36
+M×V Throughput (Frames/s),162,"4,115",173,33,"147,938","1,989","81,967","426,230"
+Area Efficiency ( Frames/s/mm2),0.46,6.85,-,-,"2,185",4.63,"2,009","6,681"
+Energy Efficiency (Frames/J),2.22,25.9,33.9,3.43,"9,263","10,839","138,927","180,606"
