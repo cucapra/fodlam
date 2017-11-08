@@ -19,7 +19,9 @@ Data Extraction
 I first extracted the raw data from the papers. The raw text files are in `raw/`.
 
 * For EIE, I first used [Tabula][] to extract unstructured CSV data. I extracted tables II, IV, and V. (Table III was not referenced in the text; it just seems to characterize the benchmarks.)
-* In the Eyeriss papers, the PDF does not have text embedded for the tables. I extracted images of tables III through VI and OCR'd them with [Tesseract][].
+* In the Eyeriss journal paper, the PDF does not have text embedded for the tables. I extracted images of tables III through VI and OCR'd them with [Tesseract][].
+
+I then cleaned up only the relevant data by hand. The resulting CSVs are in `data/`.
 
 [tabula]: http://tabula.technology
 [tesseract]: https://github.com/tesseract-ocr/tesseract
