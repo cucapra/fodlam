@@ -4,6 +4,7 @@ from __future__ import division, print_function
 import os
 import csv
 import json
+import sys
 
 DATA_DIR = 'data'
 EIE_DATA = 'eie-layers.csv'
@@ -96,11 +97,28 @@ def dict_product(a, b):
     return { k: v * b[k] for k, v in a.items() }
 
 
-if __name__ == '__main__':
+def model(config_file):
+    """Run the model for a configuration given in the specified file.
+    """
+    # Load the layer data.
     published_data = load_data()
-    print(json.dumps(published_data, sort_keys=True, indent=2))
     latency, power = layer_costs(published_data)
     energy = dict_product(latency, power)
-    print(json.dumps(latency, sort_keys=True, indent=2))
-    print(json.dumps(power, sort_keys=True, indent=2))
-    print(json.dumps(energy, sort_keys=True, indent=2))
+
+    # Load the configuration.
+    config_data = json.load(config_file)
+    layers = set(config_data['layers'])
+
+    # Sum the latency and power for each enabled layer.
+    total_latency = sum(v for k, v in latency.items() if k in layers)
+    total_energy = sum(v for k, v in energy.items() if k in layers)
+
+    return {
+        'latency': total_latency,
+        'energy': total_energy,
+    }
+
+
+if __name__ == '__main__':
+    out = model(sys.stdin)
+    print(json.dumps(out, sort_keys=True, indent=2))

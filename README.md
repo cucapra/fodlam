@@ -13,6 +13,20 @@ This is a quick, easy model for the power and performance of modern hardware imp
 EIE provides the fully-connected layers; Eyeriss provides the convolutional layers.
 
 
+Running the Model
+-----------------
+
+The model just totals up the latency and energy for each layer in a given configuration. Currently, it only supports the layers from VGG-16.
+
+To specify a DNN, create a JSON file containing a dictionary with a single key, `layers`, that maps to a list of strings naming layers. You can see examples in `config/`.
+
+Run the model by piping in a configuration file, like this:
+
+    $ python3 fodlam.py < config/vgg16.json
+
+The results are printed as JSON to stdout.
+
+
 Data Extraction
 ---------------
 
