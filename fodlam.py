@@ -49,6 +49,7 @@ def layer_costs(published):
     """
     # TODO: Power for EIE.
     # TODO: Process normalization?
+    # TODO: EIE is us, Eyeriss is ms?
 
     latencies = {}
     latencies.update(published['eie'])
