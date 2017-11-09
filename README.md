@@ -16,8 +16,6 @@ EIE provides the fully-connected layers; Eyeriss provides the convolutional laye
 Running the Model
 -----------------
 
-The model just totals up the latency and energy for each layer in a given configuration. Currently, it only supports the layers from VGG-16.
-
 To specify a DNN, create a JSON file containing a dictionary with a single key, `layers`, that maps to a list of strings naming layers. You can see examples in `config/`.
 
 Run the model by piping in a configuration file, like this:
@@ -25,6 +23,20 @@ Run the model by piping in a configuration file, like this:
     $ python3 fodlam.py < config/vgg16.json
 
 The results are printed as JSON to stdout. The results consist of total energy in joules and total latency in seconds.
+
+
+How it Works
+------------
+
+The model just totals up the latency and energy for each layer in a given configuration. Currently, it only supports the layers from VGG-16.
+
+Because Eyeriss and EIE were evaluated on different process technologies, we normalize to a consistent one. Specifically, Eyeriss is on TSMC 65nm and EIE is on TSMC 45nm; we normalize to 65nm. This works by scaling the EIE time up by the scaling factor and scaling the power by the square of the scaling factor---i.e., Dennard scaling, which is admittedly a little bit retro.
+
+While the Eyeriss paper reports per-layer power, the EIE paper does not. Instead, this is how energy is computed (quoting from the paper):
+
+> Energy is obtained by multiplying computation time and total measured power...
+
+So the authors assume that power is constant across layers. We apply the same assumption in computing EIE layer energy.
 
 
 Data Extraction
