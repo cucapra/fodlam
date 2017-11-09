@@ -30,7 +30,7 @@ The results are printed as JSON to stdout.
 Data Extraction
 ---------------
 
-I first extracted the raw data from the papers. The raw text files are in `raw/`.
+To make this model, I extracted the raw data from the papers. The raw text files from this extraction are in `raw/`.
 
 * For EIE, I first used [Tabula][] to extract unstructured CSV data. I extracted tables II, IV, and V. (Table III was not referenced in the text; it just seems to characterize the benchmarks.)
 * In the Eyeriss journal paper, the PDF does not have text embedded for the tables. I extracted images of tables III through VI and OCR'd them with [Tesseract][].
