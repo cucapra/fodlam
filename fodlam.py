@@ -61,8 +61,8 @@ def load_data():
 
 
 def layer_costs(published):
-    """Get the latencies for *all* layers in VGG-16 by combining EIE and
-    Eyeriss data.
+    """Get the latencies (in seconds) and power (in watts) for *all*
+    layers in VGG-16 by combining EIE and Eyeriss data.
     """
     eie_lat = published['eie']
     eyeriss_lat = published['eyeriss']['latency_total']
@@ -75,18 +75,32 @@ def layer_costs(published):
     eie_lat_scaled = { k: v * proc_scale for k, v in eie_lat.items() }
     eie_power_scaled = EIE_POWER * (proc_scale ** 2)
 
-    # Combine all the layers.
+    # Combine the latencies for all the layers.
     latency = dict(eie_lat_scaled)
     latency.update(eyeriss_lat)
-    power = { k: eie_power_scaled for k in eie_lat }  # Constant power.
+
+    # For Eyeriss, we have per-layer power numbers. For EIE, from the paper:
+    # "Energy is obtained by multiplying computation time and total measured
+    # power". So we follow their lead and assume constant power.
+    power = { k: eie_power_scaled for k in eie_lat }
     power.update(eyeriss_pow)
 
     return latency, power
+
+
+def dict_product(a, b):
+    """Pointwise-multiply the values in two dicts with identical sets of
+    keys.
+    """
+    assert set(a.keys()) == set(b.keys())
+    return { k: v * b[k] for k, v in a.items() }
 
 
 if __name__ == '__main__':
     published_data = load_data()
     print(json.dumps(published_data, sort_keys=True, indent=2))
     latency, power = layer_costs(published_data)
+    energy = dict_product(latency, power)
     print(json.dumps(latency, sort_keys=True, indent=2))
     print(json.dumps(power, sort_keys=True, indent=2))
+    print(json.dumps(energy, sort_keys=True, indent=2))
