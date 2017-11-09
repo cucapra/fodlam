@@ -6,6 +6,10 @@ DATA_DIR = 'data'
 EIE_DATA = 'eie-layers.csv'
 EYERISS_FILE = 'eyeriss-vgg16.csv'
 
+# EIE reports latencies in microseconds; Eyeriss in milliseconds.
+EIE_TIME_UNIT = 10 ** (-6)
+EYERISS_TIME_UNIT = 10 ** (-3)
+
 
 def load_data():
     """Load the published numbers from our data files. Return a dict
@@ -19,7 +23,8 @@ def load_data():
             if row['Layer'] == 'Actual Time':
                 for k, v in row.items():
                     if k.startswith('VGG16'):
-                        eie_vgg_latencies[k.split()[1]] = float(v)
+                        eie_vgg_latencies[k.split()[1]] = \
+                            float(v) * EIE_TIME_UNIT
 
     # Load Eyeriss data (latency and energy).
     eyeriss_vgg = {
@@ -34,9 +39,9 @@ def load_data():
             if layer == 'Total':
                 continue
             eyeriss_vgg['latency_total'][layer] = \
-                float(row['Total Latency (ms)'])
+                float(row['Total Latency (ms)']) * EYERISS_TIME_UNIT
             eyeriss_vgg['latency_proc'][layer] = \
-                float(row['Processing Latency (ms)'])
+                float(row['Processing Latency (ms)']) * EYERISS_TIME_UNIT
             eyeriss_vgg['power'][layer] = \
                 float(row['Power (mW)'])
 
@@ -49,10 +54,9 @@ def layer_costs(published):
     """
     # TODO: Power for EIE.
     # TODO: Process normalization?
-    # TODO: EIE is us, Eyeriss is ms?
 
     latencies = {}
-    latencies.update(published['eie'])
+    latencies.update(published['eie'].items())
     latencies.update(published['eyeriss']['latency_total'])
 
     return latencies
