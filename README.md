@@ -24,7 +24,7 @@ Run the model by piping in a configuration file, like this:
 
     $ python3 fodlam.py < config/vgg16.json
 
-The results are printed as JSON to stdout.
+The results are printed as JSON to stdout. The results consist of total energy in joules and total latency in seconds.
 
 
 Data Extraction
