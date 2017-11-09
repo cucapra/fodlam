@@ -1,12 +1,15 @@
 import os
 import csv
+import json
 
 DATA_DIR = 'data'
 EIE_DATA = 'eie-layers.csv'
 EYERISS_FILE = 'eyeriss-vgg16.csv'
 
+
 def load_data():
-    """Load the published numbers from our data files.
+    """Load the published numbers from our data files. Return a dict
+    with base values reflecting EIE and Eyeriss layer costs.
     """
     # Load EIE data (latency only).
     eie_vgg_latencies = {}
@@ -17,7 +20,6 @@ def load_data():
                 for k, v in row.items():
                     if k.startswith('VGG16'):
                         eie_vgg_latencies[k.split()[1]] = float(v)
-    print(eie_vgg_latencies)
 
     # Load Eyeriss data (latency and energy).
     eyeriss_vgg = {
@@ -37,7 +39,10 @@ def load_data():
                 float(row['Processing Latency (ms)'])
             eyeriss_vgg['power'][layer] = \
                 float(row['Power (mW)'])
-    print(eyeriss_vgg)
+
+    return { 'eie': eie_vgg_latencies, 'eyeriss': eyeriss_vgg }
+
 
 if __name__ == '__main__':
-    load_data()
+    layer_data = load_data()
+    print(json.dumps(layer_data, sort_keys=True, indent=2))
