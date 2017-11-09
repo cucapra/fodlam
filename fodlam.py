@@ -20,15 +20,23 @@ def load_data():
     print(eie_vgg_latencies)
 
     # Load Eyeriss data (latency and energy).
-    eyeriss_vgg = {}
+    eyeriss_vgg = {
+        'latency_total': {},
+        'latency_proc': {},
+        'power': {},
+    }
     with open(os.path.join(DATA_DIR, EYERISS_FILE)) as f:
         reader = csv.DictReader(f)
         for row in reader:
-            eyeriss_vgg[row['Layer']] = {
-                'proclatency': float(row['Processing Latency (ms)']),
-                'totallatency': float(row['Total Latency (ms)']),
-                'power': float(row['Power (mW)']),
-            }
+            layer = row['Layer']
+            if layer == 'Total':
+                continue
+            eyeriss_vgg['latency_total'][layer] = \
+                float(row['Total Latency (ms)'])
+            eyeriss_vgg['latency_proc'][layer] = \
+                float(row['Processing Latency (ms)'])
+            eyeriss_vgg['power'][layer] = \
+                float(row['Power (mW)'])
     print(eyeriss_vgg)
 
 if __name__ == '__main__':
