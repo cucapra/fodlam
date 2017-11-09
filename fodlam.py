@@ -43,6 +43,22 @@ def load_data():
     return { 'eie': eie_vgg_latencies, 'eyeriss': eyeriss_vgg }
 
 
+def layer_costs(published):
+    """Get the latencies for *all* layers in VGG-16 by combining EIE and
+    Eyeriss data.
+    """
+    # TODO: Power for EIE.
+    # TODO: Process normalization?
+
+    latencies = {}
+    latencies.update(published['eie'])
+    latencies.update(published['eyeriss']['latency_total'])
+
+    return latencies
+
+
 if __name__ == '__main__':
-    layer_data = load_data()
-    print(json.dumps(layer_data, sort_keys=True, indent=2))
+    published_data = load_data()
+    print(json.dumps(published_data, sort_keys=True, indent=2))
+    costs = layer_costs(published_data)
+    print(json.dumps(costs, sort_keys=True, indent=2))
