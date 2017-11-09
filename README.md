@@ -34,7 +34,7 @@ How it Works
 
 The model just totals up the latency and energy for each layer in a given configuration. Currently, it only supports the layers from VGG-16.
 
-Because Eyeriss and EIE were evaluated on different process technologies, we normalize to a consistent one. Specifically, Eyeriss is on TSMC 65nm and EIE is on TSMC 45nm; we normalize to 65nm. This works by multiplying EIE time by the scaling factor and multiplying the power by the square of the scaling factor---i.e., Dennard scaling, which is admittedly retro.
+Because Eyeriss and EIE were evaluated on different process technologies, we have to scale one of them to model a single ASIC. Specifically, Eyeriss is on TSMC 65nm and EIE is on TSMC 45nm; we normalize to 65nm. This works by multiplying EIE time by the scaling factor and multiplying the power by the square of the scaling factor---i.e., Dennard scaling, which is admittedly retro.
 
 While the Eyeriss paper reports per-layer power, the EIE paper does not. Instead, this is how energy is computed (quoting from the paper):
 
