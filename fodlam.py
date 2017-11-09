@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+from __future__ import division, print_function
+
 import os
 import csv
 import json
@@ -9,6 +12,10 @@ EYERISS_FILE = 'eyeriss-vgg16.csv'
 # EIE reports latencies in microseconds; Eyeriss in milliseconds.
 EIE_TIME_UNIT = 10 ** (-6)
 EYERISS_TIME_UNIT = 10 ** (-3)
+
+# Process nodes for published implementations. Both use TSMC processes.
+EIE_PROCESS_NM = 45
+EYERISS_PROCESS_NM = 65
 
 
 def load_data():
@@ -53,11 +60,20 @@ def layer_costs(published):
     Eyeriss data.
     """
     # TODO: Power for EIE.
-    # TODO: Process normalization?
 
+    eie_lat = published['eie']
+    eyeriss_lat = published['eyeriss']['latency_total']
+
+    # Process scaling factor between Eyeriss and EIE. We scale the EIE
+    # numbers because the magnitudes for Eyeriss are more significant
+    # and the paper has a more complete evaluation.
+    proc_scale = EYERISS_PROCESS_NM / EIE_PROCESS_NM
+    eie_lat_scaled = { k: v * proc_scale for k, v in eie_lat.items() }
+
+    # Combine all the layers.
     latencies = {}
-    latencies.update(published['eie'].items())
-    latencies.update(published['eyeriss']['latency_total'])
+    latencies.update(eie_lat_scaled)
+    latencies.update(eyeriss_lat)
 
     return latencies
 
