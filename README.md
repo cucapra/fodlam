@@ -55,3 +55,12 @@ I then cleaned up the relevant data by hand. The cleaned-up CSVs that FODLAM use
 
 [tabula]: http://tabula.technology
 [tesseract]: https://github.com/tesseract-ocr/tesseract
+
+
+Credits
+-------
+
+This is a research artifact from [Capra][] at Cornell. The license is [MIT][].
+
+[capra]: https://capra.cs.cornell.edu
+[mit]: https://opensource.org/licenses/MIT
