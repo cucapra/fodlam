@@ -6,10 +6,12 @@ import csv
 import json
 import sys
 
+NETWORKS = ('VGG16', 'AlexNet')
+
 DATA_DIR = 'data'
 EIE_FILE = 'eie-layers.csv'
 EYERISS_FILES = {
-    'VGG': 'eyeriss-vgg16.csv',
+    'VGG16': 'eyeriss-vgg16.csv',
     'AlexNet': 'eyeriss-alexnet.csv',
 }
 
@@ -32,36 +34,41 @@ def load_data():
     with base values reflecting EIE and Eyeriss layer costs.
     """
     # Load EIE data (latency only).
-    eie_vgg_latencies = {}
+    eie_latencies = {}
     with open(os.path.join(DATA_DIR, EIE_FILE)) as f:
         reader = csv.DictReader(f)
         for row in reader:
             if row['Layer'] == 'Actual Time':
                 for k, v in row.items():
-                    if k.startswith('VGG16'):
-                        eie_vgg_latencies[k.split()[1]] = \
-                            float(v) * EIE_TIME_UNIT
+                    # The table has the network and the layer name
+                    # together in one cell.
+                    if ' ' in k:
+                        network, layer = k.split()
+                        if network in NETWORKS:
+                            eie_latencies[network, layer] = \
+                                float(v) * EIE_TIME_UNIT
 
     # Load Eyeriss data (latency and energy).
-    eyeriss_vgg = {
+    eyeriss = {
         'latency_total': {},
         'latency_proc': {},
         'power': {},
     }
-    with open(os.path.join(DATA_DIR, EYERISS_FILES['VGG'])) as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            layer = row['Layer']
-            if layer == 'Total':
-                continue
-            eyeriss_vgg['latency_total'][layer] = \
-                float(row['Total Latency (ms)']) * EYERISS_TIME_UNIT
-            eyeriss_vgg['latency_proc'][layer] = \
-                float(row['Processing Latency (ms)']) * EYERISS_TIME_UNIT
-            eyeriss_vgg['power'][layer] = \
-                float(row['Power (mW)']) * EYERISS_POWER_UNIT
+    for network in NETWORKS:
+        with open(os.path.join(DATA_DIR, EYERISS_FILES[network])) as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                layer = row['Layer']
+                if layer == 'Total':
+                    continue
+                eyeriss['latency_total'][network, layer] = \
+                    float(row['Total Latency (ms)']) * EYERISS_TIME_UNIT
+                eyeriss['latency_proc'][network, layer] = \
+                    float(row['Processing Latency (ms)']) * EYERISS_TIME_UNIT
+                eyeriss['power'][network, layer] = \
+                    float(row['Power (mW)']) * EYERISS_POWER_UNIT
 
-    return { 'eie': eie_vgg_latencies, 'eyeriss': eyeriss_vgg }
+    return { 'eie': eie_latencies, 'eyeriss': eyeriss }
 
 
 def layer_costs(published):
@@ -100,6 +107,20 @@ def dict_product(a, b):
     return { k: v * b[k] for k, v in a.items() }
 
 
+def load_config(config_file, available_layers):
+    """Load a neural network configuration from a file-like object.
+    Return a set of enabled layers, which are pairs of strings (the
+    network name and the layer name).
+
+    Also, check that the configured layers are all available in the
+    given set of layer IDs.
+    """
+    config_data = json.load(config_file)
+    layers = set(tuple(l) for l in config_data['layers'])
+    assert layers < available_layers
+    return layers
+
+
 def model(config_file):
     """Run the model for a configuration given in the specified file.
     """
@@ -108,9 +129,8 @@ def model(config_file):
     latency, power = layer_costs(published_data)
     energy = dict_product(latency, power)
 
-    # Load the configuration.
-    config_data = json.load(config_file)
-    layers = set(config_data['layers'])
+    # Load the configuration we're modeling.
+    layers = load_config(config_file, set(energy))
 
     # Sum the latency and power for each enabled layer.
     total_latency = sum(v for k, v in latency.items() if k in layers)
