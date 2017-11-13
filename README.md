@@ -16,7 +16,7 @@ EIE provides the fully-connected layers; Eyeriss provides the convolutional laye
 Running the Model
 -----------------
 
-To specify a DNN, create a JSON file containing a dictionary with a single key, `layers`, that maps to a list of strings naming layers. You can see examples in `config/`.
+To specify a DNN, create a JSON file containing a dictionary with a single key, `layers`, that maps to a list of pairs of strings: the network name (`"VGG16"` or `"AlexNet"`) and the layer name. You can see examples in `config/`.
 
 Run FODLAM by piping in a configuration file, like this:
 
@@ -32,7 +32,7 @@ The results are printed as JSON to stdout. The output consists of total energy i
 How it Works
 ------------
 
-The model just totals up the latency and energy for each layer in a given configuration. Currently, it only supports the layers from VGG-16.
+The model just totals up the latency and energy for each layer in a given configuration. Currently, it supports the layers from VGG-16 and AlexNet.
 
 Because Eyeriss and EIE were evaluated on different process technologies, we have to scale one of them to model a single ASIC. Specifically, Eyeriss is on TSMC 65nm and EIE is on TSMC 45nm; we normalize to 65nm. This works by multiplying EIE time by the scaling factor and multiplying the power by the square of the scaling factor---i.e., Dennard scaling, which is admittedly retro.
 
