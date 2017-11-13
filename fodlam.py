@@ -107,6 +107,14 @@ def dict_product(a, b):
     return { k: v * b[k] for k, v in a.items() }
 
 
+def select_sum(keys, mapping):
+    """Sum the values in `mapping` corresponding to keys that are
+    present in `keys`. Every key in `keys` must be present in `mapping`.
+    """
+    assert set(keys) <= set(mapping)
+    return sum(v for k, v in mapping.items() if k in keys)
+
+
 def load_config(config_file, available_layers):
     """Load a neural network configuration from a file-like object.
     Return a set of enabled layers, which are pairs of strings (the
@@ -117,7 +125,7 @@ def load_config(config_file, available_layers):
     """
     config_data = json.load(config_file)
     layers = set(tuple(l) for l in config_data['layers'])
-    assert layers < available_layers
+    assert layers <= available_layers
     return layers
 
 
@@ -133,8 +141,8 @@ def model(config_file):
     layers = load_config(config_file, set(energy))
 
     # Sum the latency and power for each enabled layer.
-    total_latency = sum(v for k, v in latency.items() if k in layers)
-    total_energy = sum(v for k, v in energy.items() if k in layers)
+    total_latency = select_sum(layers, latency)
+    total_energy = select_sum(layers, energy)
 
     return {
         'latency': total_latency,
