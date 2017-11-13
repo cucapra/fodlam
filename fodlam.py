@@ -7,8 +7,11 @@ import json
 import sys
 
 DATA_DIR = 'data'
-EIE_DATA = 'eie-layers.csv'
-EYERISS_FILE = 'eyeriss-vgg16.csv'
+EIE_FILE = 'eie-layers.csv'
+EYERISS_FILES = {
+    'VGG': 'eyeriss-vgg16.csv',
+    'AlexNet': 'eyeriss-alexnet.csv',
+}
 
 # EIE reports latencies in microseconds; Eyeriss in milliseconds. Eyeriss
 # reports per-layer power in milliwatts.
@@ -30,7 +33,7 @@ def load_data():
     """
     # Load EIE data (latency only).
     eie_vgg_latencies = {}
-    with open(os.path.join(DATA_DIR, EIE_DATA)) as f:
+    with open(os.path.join(DATA_DIR, EIE_FILE)) as f:
         reader = csv.DictReader(f)
         for row in reader:
             if row['Layer'] == 'Actual Time':
@@ -45,7 +48,7 @@ def load_data():
         'latency_proc': {},
         'power': {},
     }
-    with open(os.path.join(DATA_DIR, EYERISS_FILE)) as f:
+    with open(os.path.join(DATA_DIR, EYERISS_FILES['VGG'])) as f:
         reader = csv.DictReader(f)
         for row in reader:
             layer = row['Layer']
