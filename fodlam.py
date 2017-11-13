@@ -140,13 +140,25 @@ def model(config_file):
     # Load the configuration we're modeling.
     layers = load_config(config_file, set(energy))
 
-    # Sum the latency and power for each enabled layer.
-    total_latency = select_sum(layers, latency)
-    total_energy = select_sum(layers, energy)
+    # Subsets of the layers for convolutional and fully-connected layers.
+    layers_conv = set(l for l in layers if l[1].startswith('CONV'))
+    layers_fc = set(l for l in layers if l[1].startswith('FC'))
+    assert layers_conv.union(layers_fc) == layers
 
+    # Report total and per-layer-type sums.
     return {
-        'latency': total_latency,
-        'energy': total_energy,
+        'total': {
+            'latency': select_sum(layers, latency),
+            'energy': select_sum(layers, energy),
+        },
+        'conv': {
+            'latency': select_sum(layers_conv, latency),
+            'energy': select_sum(layers_conv, energy),
+        },
+        'fc': {
+            'latency': select_sum(layers_fc, latency),
+            'energy': select_sum(layers_fc, energy),
+        },
     }
 
 

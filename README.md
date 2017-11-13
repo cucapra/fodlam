@@ -22,11 +22,21 @@ Run FODLAM by piping in a configuration file, like this:
 
     $ python3 fodlam.py < config/vgg16.json
     {
-      "energy": 1.016350071803841,
-      "latency": 4.309474388888889
+      "conv": {
+        "energy": 1.0162585,
+        "latency": 4.3094
+      },
+      "fc": {
+        "energy": 9.157180384087789e-05,
+        "latency": 7.438888888888888e-05
+      },
+      "total": {
+        "energy": 1.016350071803841,
+        "latency": 4.309474388888889
+      }
     }
 
-The results are printed as JSON to stdout. The output consists of total energy in joules and total latency in seconds.
+The results are printed as JSON to stdout. The output consists of the total energy in joules and total latency in seconds. The output includes the total for the entire network, just the convolutional layers, and just the fully-connected layers.
 
 
 How it Works
