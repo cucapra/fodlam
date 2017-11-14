@@ -1,0 +1,561 @@
+{
+  "name": "VGG_ILSVRC_16_layers",
+  "layers": [
+    {
+      "bottom": [
+        "data"
+      ],
+      "top": [
+        "conv1_1"
+      ],
+      "name": "conv1_1",
+      "type": "CONVOLUTION",
+      "convolutionParam": {
+        "numOutput": 64,
+        "pad": [
+          1
+        ],
+        "kernelSize": [
+          3
+        ]
+      }
+    },
+    {
+      "bottom": [
+        "conv1_1"
+      ],
+      "top": [
+        "conv1_1"
+      ],
+      "name": "relu1_1",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "conv1_1"
+      ],
+      "top": [
+        "conv1_2"
+      ],
+      "name": "conv1_2",
+      "type": "CONVOLUTION",
+      "convolutionParam": {
+        "numOutput": 64,
+        "pad": [
+          1
+        ],
+        "kernelSize": [
+          3
+        ]
+      }
+    },
+    {
+      "bottom": [
+        "conv1_2"
+      ],
+      "top": [
+        "conv1_2"
+      ],
+      "name": "relu1_2",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "conv1_2"
+      ],
+      "top": [
+        "pool1"
+      ],
+      "name": "pool1",
+      "type": "POOLING",
+      "poolingParam": {
+        "pool": "MAX",
+        "kernelSize": 2,
+        "stride": 2
+      }
+    },
+    {
+      "bottom": [
+        "pool1"
+      ],
+      "top": [
+        "conv2_1"
+      ],
+      "name": "conv2_1",
+      "type": "CONVOLUTION",
+      "convolutionParam": {
+        "numOutput": 128,
+        "pad": [
+          1
+        ],
+        "kernelSize": [
+          3
+        ]
+      }
+    },
+    {
+      "bottom": [
+        "conv2_1"
+      ],
+      "top": [
+        "conv2_1"
+      ],
+      "name": "relu2_1",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "conv2_1"
+      ],
+      "top": [
+        "conv2_2"
+      ],
+      "name": "conv2_2",
+      "type": "CONVOLUTION",
+      "convolutionParam": {
+        "numOutput": 128,
+        "pad": [
+          1
+        ],
+        "kernelSize": [
+          3
+        ]
+      }
+    },
+    {
+      "bottom": [
+        "conv2_2"
+      ],
+      "top": [
+        "conv2_2"
+      ],
+      "name": "relu2_2",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "conv2_2"
+      ],
+      "top": [
+        "pool2"
+      ],
+      "name": "pool2",
+      "type": "POOLING",
+      "poolingParam": {
+        "pool": "MAX",
+        "kernelSize": 2,
+        "stride": 2
+      }
+    },
+    {
+      "bottom": [
+        "pool2"
+      ],
+      "top": [
+        "conv3_1"
+      ],
+      "name": "conv3_1",
+      "type": "CONVOLUTION",
+      "convolutionParam": {
+        "numOutput": 256,
+        "pad": [
+          1
+        ],
+        "kernelSize": [
+          3
+        ]
+      }
+    },
+    {
+      "bottom": [
+        "conv3_1"
+      ],
+      "top": [
+        "conv3_1"
+      ],
+      "name": "relu3_1",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "conv3_1"
+      ],
+      "top": [
+        "conv3_2"
+      ],
+      "name": "conv3_2",
+      "type": "CONVOLUTION",
+      "convolutionParam": {
+        "numOutput": 256,
+        "pad": [
+          1
+        ],
+        "kernelSize": [
+          3
+        ]
+      }
+    },
+    {
+      "bottom": [
+        "conv3_2"
+      ],
+      "top": [
+        "conv3_2"
+      ],
+      "name": "relu3_2",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "conv3_2"
+      ],
+      "top": [
+        "conv3_3"
+      ],
+      "name": "conv3_3",
+      "type": "CONVOLUTION",
+      "convolutionParam": {
+        "numOutput": 256,
+        "pad": [
+          1
+        ],
+        "kernelSize": [
+          3
+        ]
+      }
+    },
+    {
+      "bottom": [
+        "conv3_3"
+      ],
+      "top": [
+        "conv3_3"
+      ],
+      "name": "relu3_3",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "conv3_3"
+      ],
+      "top": [
+        "pool3"
+      ],
+      "name": "pool3",
+      "type": "POOLING",
+      "poolingParam": {
+        "pool": "MAX",
+        "kernelSize": 2,
+        "stride": 2
+      }
+    },
+    {
+      "bottom": [
+        "pool3"
+      ],
+      "top": [
+        "conv4_1"
+      ],
+      "name": "conv4_1",
+      "type": "CONVOLUTION",
+      "convolutionParam": {
+        "numOutput": 512,
+        "pad": [
+          1
+        ],
+        "kernelSize": [
+          3
+        ]
+      }
+    },
+    {
+      "bottom": [
+        "conv4_1"
+      ],
+      "top": [
+        "conv4_1"
+      ],
+      "name": "relu4_1",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "conv4_1"
+      ],
+      "top": [
+        "conv4_2"
+      ],
+      "name": "conv4_2",
+      "type": "CONVOLUTION",
+      "convolutionParam": {
+        "numOutput": 512,
+        "pad": [
+          1
+        ],
+        "kernelSize": [
+          3
+        ]
+      }
+    },
+    {
+      "bottom": [
+        "conv4_2"
+      ],
+      "top": [
+        "conv4_2"
+      ],
+      "name": "relu4_2",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "conv4_2"
+      ],
+      "top": [
+        "conv4_3"
+      ],
+      "name": "conv4_3",
+      "type": "CONVOLUTION",
+      "convolutionParam": {
+        "numOutput": 512,
+        "pad": [
+          1
+        ],
+        "kernelSize": [
+          3
+        ]
+      }
+    },
+    {
+      "bottom": [
+        "conv4_3"
+      ],
+      "top": [
+        "conv4_3"
+      ],
+      "name": "relu4_3",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "conv4_3"
+      ],
+      "top": [
+        "pool4"
+      ],
+      "name": "pool4",
+      "type": "POOLING",
+      "poolingParam": {
+        "pool": "MAX",
+        "kernelSize": 2,
+        "stride": 2
+      }
+    },
+    {
+      "bottom": [
+        "pool4"
+      ],
+      "top": [
+        "conv5_1"
+      ],
+      "name": "conv5_1",
+      "type": "CONVOLUTION",
+      "convolutionParam": {
+        "numOutput": 512,
+        "pad": [
+          1
+        ],
+        "kernelSize": [
+          3
+        ]
+      }
+    },
+    {
+      "bottom": [
+        "conv5_1"
+      ],
+      "top": [
+        "conv5_1"
+      ],
+      "name": "relu5_1",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "conv5_1"
+      ],
+      "top": [
+        "conv5_2"
+      ],
+      "name": "conv5_2",
+      "type": "CONVOLUTION",
+      "convolutionParam": {
+        "numOutput": 512,
+        "pad": [
+          1
+        ],
+        "kernelSize": [
+          3
+        ]
+      }
+    },
+    {
+      "bottom": [
+        "conv5_2"
+      ],
+      "top": [
+        "conv5_2"
+      ],
+      "name": "relu5_2",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "conv5_2"
+      ],
+      "top": [
+        "conv5_3"
+      ],
+      "name": "conv5_3",
+      "type": "CONVOLUTION",
+      "convolutionParam": {
+        "numOutput": 512,
+        "pad": [
+          1
+        ],
+        "kernelSize": [
+          3
+        ]
+      }
+    },
+    {
+      "bottom": [
+        "conv5_3"
+      ],
+      "top": [
+        "conv5_3"
+      ],
+      "name": "relu5_3",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "conv5_3"
+      ],
+      "top": [
+        "pool5"
+      ],
+      "name": "pool5",
+      "type": "POOLING",
+      "poolingParam": {
+        "pool": "MAX",
+        "kernelSize": 2,
+        "stride": 2
+      }
+    },
+    {
+      "bottom": [
+        "pool5"
+      ],
+      "top": [
+        "fc6"
+      ],
+      "name": "fc6",
+      "type": "INNER_PRODUCT",
+      "innerProductParam": {
+        "numOutput": 4096
+      }
+    },
+    {
+      "bottom": [
+        "fc6"
+      ],
+      "top": [
+        "fc6"
+      ],
+      "name": "relu6",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "fc6"
+      ],
+      "top": [
+        "fc6"
+      ],
+      "name": "drop6",
+      "type": "DROPOUT",
+      "dropoutParam": {
+        "dropoutRatio": 0.5
+      }
+    },
+    {
+      "bottom": [
+        "fc6"
+      ],
+      "top": [
+        "fc7"
+      ],
+      "name": "fc7",
+      "type": "INNER_PRODUCT",
+      "innerProductParam": {
+        "numOutput": 4096
+      }
+    },
+    {
+      "bottom": [
+        "fc7"
+      ],
+      "top": [
+        "fc7"
+      ],
+      "name": "relu7",
+      "type": "RELU"
+    },
+    {
+      "bottom": [
+        "fc7"
+      ],
+      "top": [
+        "fc7"
+      ],
+      "name": "drop7",
+      "type": "DROPOUT",
+      "dropoutParam": {
+        "dropoutRatio": 0.5
+      }
+    },
+    {
+      "bottom": [
+        "fc7"
+      ],
+      "top": [
+        "fc8"
+      ],
+      "name": "fc8",
+      "type": "INNER_PRODUCT",
+      "innerProductParam": {
+        "numOutput": 1000
+      }
+    },
+    {
+      "bottom": [
+        "fc8"
+      ],
+      "top": [
+        "prob"
+      ],
+      "name": "prob",
+      "type": "SOFTMAX"
+    }
+  ],
+  "input": [
+    "data"
+  ],
+  "inputDim": [
+    10,
+    3,
+    224,
+    224
+  ]
+}
