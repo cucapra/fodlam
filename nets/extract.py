@@ -7,6 +7,9 @@ import json
 
 
 def _blob_and_weights(net, layer_name):
+    """Get the activation blob and the weights blob for the named layer
+    in the Caffe network.
+    """
     # Get the activation blob for this layer and its parameters
     # (weights).
     blob = net.blobs[net.top_names[layer_name][0]]
@@ -14,6 +17,13 @@ def _blob_and_weights(net, layer_name):
     return blob, weights
 
 def extract(model_fn):
+    """Extract per-layer cost information from a Caffe model file, given
+    as the path to a prototxt specification.
+
+    Generate a sequence of dicts with each layer's name, type, and (for
+    some kinds of layers) the total number of multiply--accumulate
+    operations needed for a (forward) computation of the layer.
+    """
     # Load the model from the prototxt file.
     net = caffe.Net(model_fn, caffe.TEST)
 
@@ -36,7 +46,7 @@ def extract(model_fn):
             kernel_height = weights.shape[2]
             kernel_width = weights.shape[3]
 
-            # Compute the total number of multiply-and-accumulate
+            # Compute the total number of multiply--accumulate
             # operations for this convolutional layer.
             num_outputs = layer_width * layer_height * out_chan
             num_macs_per_out = in_chan * kernel_height * kernel_width
