@@ -16,6 +16,7 @@ def _blob_and_weights(net, layer_name):
     weights = net.params[layer_name][0]
     return blob, weights
 
+
 def extract(model_fn):
     """Extract per-layer cost information from a Caffe model file, given
     as the path to a prototxt specification.
@@ -66,6 +67,7 @@ def extract(model_fn):
             layer_info['macs'] = num_macs
 
         yield layer_info
+
 
 if __name__ == '__main__':
     out = list(extract(sys.argv[1]))
