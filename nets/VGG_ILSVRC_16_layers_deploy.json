@@ -1,0 +1,178 @@
+[
+  {
+    "name": "input", 
+    "type": "Input"
+  }, 
+  {
+    "macs": 86704128, 
+    "name": "conv1_1", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu1_1", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 1849688064, 
+    "name": "conv1_2", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu1_2", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "pool1", 
+    "type": "Pooling"
+  }, 
+  {
+    "macs": 924844032, 
+    "name": "conv2_1", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu2_1", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 1849688064, 
+    "name": "conv2_2", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu2_2", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "pool2", 
+    "type": "Pooling"
+  }, 
+  {
+    "macs": 924844032, 
+    "name": "conv3_1", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu3_1", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 1849688064, 
+    "name": "conv3_2", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu3_2", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 1849688064, 
+    "name": "conv3_3", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu3_3", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "pool3", 
+    "type": "Pooling"
+  }, 
+  {
+    "macs": 924844032, 
+    "name": "conv4_1", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu4_1", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 1849688064, 
+    "name": "conv4_2", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu4_2", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 1849688064, 
+    "name": "conv4_3", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu4_3", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "pool4", 
+    "type": "Pooling"
+  }, 
+  {
+    "macs": 462422016, 
+    "name": "conv5_1", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu5_1", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 462422016, 
+    "name": "conv5_2", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu5_2", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 462422016, 
+    "name": "conv5_3", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu5_3", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "pool5", 
+    "type": "Pooling"
+  }, 
+  {
+    "macs": 102760448, 
+    "name": "fc6", 
+    "type": "InnerProduct"
+  }, 
+  {
+    "name": "relu6", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "drop6", 
+    "type": "Dropout"
+  }, 
+  {
+    "macs": 16777216, 
+    "name": "fc7", 
+    "type": "InnerProduct"
+  }, 
+  {
+    "name": "relu7", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "drop7", 
+    "type": "Dropout"
+  }, 
+  {
+    "macs": 4096000, 
+    "name": "fc8", 
+    "type": "InnerProduct"
+  }, 
+  {
+    "name": "prob", 
+    "type": "Softmax"
+  }
+]

@@ -1,0 +1,106 @@
+[
+  {
+    "name": "data", 
+    "type": "Input"
+  }, 
+  {
+    "macs": 105415200, 
+    "name": "conv1", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu1", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "norm1", 
+    "type": "LRN"
+  }, 
+  {
+    "name": "pool1", 
+    "type": "Pooling"
+  }, 
+  {
+    "macs": 223948800, 
+    "name": "conv2", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu2", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "norm2", 
+    "type": "LRN"
+  }, 
+  {
+    "name": "pool2", 
+    "type": "Pooling"
+  }, 
+  {
+    "macs": 149520384, 
+    "name": "conv3", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu3", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 112140288, 
+    "name": "conv4", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu4", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 74760192, 
+    "name": "conv5", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu5", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "pool5", 
+    "type": "Pooling"
+  }, 
+  {
+    "macs": 37748736, 
+    "name": "fc6", 
+    "type": "InnerProduct"
+  }, 
+  {
+    "name": "relu6", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "drop6", 
+    "type": "Dropout"
+  }, 
+  {
+    "macs": 16777216, 
+    "name": "fc7", 
+    "type": "InnerProduct"
+  }, 
+  {
+    "name": "relu7", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "drop7", 
+    "type": "Dropout"
+  }, 
+  {
+    "macs": 4096000, 
+    "name": "fc8", 
+    "type": "InnerProduct"
+  }, 
+  {
+    "name": "prob", 
+    "type": "Softmax"
+  }
+]
