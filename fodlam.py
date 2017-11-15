@@ -6,8 +6,10 @@ import csv
 import json
 import sys
 
+# The networks that our accelerators have measurements for.
 NETWORKS = ('VGG16', 'AlexNet')
 
+# Accelerator data files.
 DATA_DIR = 'data'
 EIE_FILE = 'eie-layers.csv'
 EYERISS_FILES = {
@@ -28,8 +30,15 @@ EYERISS_PROCESS_NM = 65
 # EIE reports only a total design power (in watts).
 EIE_POWER = 0.59
 
+# Data files with neural network statistics.
+NETS_DIR = 'nets'
+NET_FILES = {
+    'VGG16': 'VGG_ILSVRC_16_layers_deploy.json',
+    'AlexNet': 'alexnet_deploy.json',
+}
 
-def load_data():
+
+def load_hw_data():
     """Load the published numbers from our data files. Return a dict
     with base values reflecting EIE and Eyeriss layer costs.
     """
@@ -99,6 +108,37 @@ def layer_costs(published):
     return latency, power
 
 
+def norm_layer_name(name):
+    """Some heuristics to normalize a layer name from multiple sources.
+
+    For example, some depictions of VGG-16 use use upper case; others
+    use lower case. Some use hyphens; others use underscores. These
+    heuristics are by no means complete, but they increase the
+    likelihood that layer names from multiple sources will align.
+    """
+    return name.upper().replace('_', '-')
+
+
+def load_net_data():
+    """Load statistics about the neural networks from our description
+    files. Return mappings from layer names to multiply--accumulate
+    counts.
+    """
+    out = {}
+
+    for network, filename in NET_FILES.items():
+        with open(os.path.join(NETS_DIR, filename)) as f:
+            layers = json.load(f)
+
+        # Flatten the list of layer statistics dictionaries into a
+        # name-to-number mapping.
+        layer_info = { norm_layer_name(i['name']): i['macs']
+                       for i in layers if 'macs' in i }
+        out[network] = layer_info
+
+    return out
+
+
 def dict_product(a, b):
     """Pointwise-multiply the values in two dicts with identical sets of
     keys.
@@ -132,10 +172,13 @@ def load_config(config_file, available_layers):
 def model(config_file):
     """Run the model for a configuration given in the specified file.
     """
-    # Load the layer data.
-    published_data = load_data()
+    # Load the hardware cost data.
+    published_data = load_hw_data()
     latency, power = layer_costs(published_data)
     energy = dict_product(latency, power)
+
+    # Load the network information.
+    net_data = load_net_data()
 
     # Load the configuration we're modeling.
     layers = load_config(config_file, set(energy))
