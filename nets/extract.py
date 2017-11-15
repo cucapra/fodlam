@@ -59,7 +59,8 @@ def extract(model_fn):
         elif layer.type == "InnerProduct":
             blob, weights = _blob_and_weights(net, name)
 
-            # Not sure about this at all.
+            # There is one MAC per "synapse" (i.e., each pairing of an
+            # input neuron with an output neuron).
             num_output = weights.shape[0]
             num_input = weights.shape[1]
             num_macs = num_input * num_output
