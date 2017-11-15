@@ -26,4 +26,4 @@ caffe.proto:
 	protoc --python_out=. $@
 
 %.json: %.prototxt caffe_pb2.py
-	python3 extract_caffe.py < $< > $@
+	python2 extract.py $< > $@

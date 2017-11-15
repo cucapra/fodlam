@@ -3,13 +3,18 @@ from __future__ import division, print_function
 
 import sys
 import caffe
+import json
 
 def extract(model_fn):
     # Load the model from the prototxt file.
     net = caffe.Net(model_fn, caffe.TEST)
 
     for name, layer in zip(net._layer_names, net.layers):
-        print(name, layer)
+        layer_info = {
+            'name': name,
+            'type': layer.type,
+        }
+
         if layer.type in ('Convolution', 'Deconvolution'):
             # Get the input blob for this layer and its parameters (weights).
             blob = net.blobs[net.top_names[name][0]]
@@ -30,7 +35,10 @@ def extract(model_fn):
             num_macs_per_out = in_chan * kernel_height * kernel_width
             num_macs = num_outputs * num_macs_per_out
 
-            print(name, num_macs)
+            layer_info['macs'] = num_macs
+
+        yield layer_info
 
 if __name__ == '__main__':
-    extract(sys.argv[1])
+    out = list(extract(sys.argv[1]))
+    print(json.dumps(out, indent=2, sort_keys=True))
