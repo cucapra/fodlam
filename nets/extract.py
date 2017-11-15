@@ -61,8 +61,9 @@ def extract(model_fn):
             # Not sure about this at all.
             num_output = weights.shape[0]
             num_input = weights.shape[1]
+            num_macs = num_input * num_output
 
-            layer_info['macs'] = num_output * num_input
+            layer_info['macs'] = num_macs
 
         yield layer_info
 
