@@ -7,12 +7,15 @@ import json
 import sys
 from collections import namedtuple
 
+# The root directory where our data files are.
+BASE_DIR = os.path.dirname(__file__)
+
 # The networks that our accelerators have measurements for.
 NETWORKS = ('VGG16', 'AlexNet')
 LAYER_KINDS = ('conv', 'fc')
 
 # Accelerator data files.
-DATA_DIR = 'data'
+DATA_DIR = os.path.join(BASE_DIR, 'data')
 EIE_FILE = 'eie-layers.csv'
 EYERISS_FILES = {
     'VGG16': 'eyeriss-vgg16.csv',
@@ -33,7 +36,7 @@ EYERISS_PROCESS_NM = 65
 EIE_POWER = 0.59
 
 # Data files with neural network statistics.
-NETS_DIR = 'nets'
+NETS_DIR = os.path.join(BASE_DIR, 'nets')
 NET_FILES = {
     'VGG16': 'VGG_ILSVRC_16_layers_deploy.json',
     'AlexNet': 'alexnet_deploy.json',
