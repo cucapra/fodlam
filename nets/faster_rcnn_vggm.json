@@ -1,0 +1,158 @@
+[
+  {
+    "name": "input", 
+    "type": "Input"
+  }, 
+  {
+    "macs": 167664672, 
+    "name": "conv1", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu1", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "norm1", 
+    "type": "LRN"
+  }, 
+  {
+    "name": "pool1", 
+    "type": "Pooling"
+  }, 
+  {
+    "macs": 415334400, 
+    "name": "conv2", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu2", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "norm2", 
+    "type": "LRN"
+  }, 
+  {
+    "name": "pool2", 
+    "type": "Pooling"
+  }, 
+  {
+    "macs": 199360512, 
+    "name": "conv3", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu3", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 398721024, 
+    "name": "conv4", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu4", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 398721024, 
+    "name": "conv5", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu5", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "conv5_relu5_0_split", 
+    "type": "Split"
+  }, 
+  {
+    "macs": 199360512, 
+    "name": "rpn_conv/3x3", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "rpn_relu/3x3", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "rpn/output_rpn_relu/3x3_0_split", 
+    "type": "Split"
+  }, 
+  {
+    "macs": 778752, 
+    "name": "rpn_cls_score", 
+    "type": "Convolution"
+  }, 
+  {
+    "macs": 1557504, 
+    "name": "rpn_bbox_pred", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "rpn_cls_score_reshape", 
+    "type": "Reshape"
+  }, 
+  {
+    "name": "rpn_cls_prob", 
+    "type": "Softmax"
+  }, 
+  {
+    "name": "rpn_cls_prob_reshape", 
+    "type": "Reshape"
+  }, 
+  {
+    "name": "proposal", 
+    "type": "Python"
+  }, 
+  {
+    "name": "roi_pool5", 
+    "type": "ROIPooling"
+  }, 
+  {
+    "macs": 75497472, 
+    "name": "fc6", 
+    "type": "InnerProduct"
+  }, 
+  {
+    "name": "relu6", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "drop6", 
+    "type": "Dropout"
+  }, 
+  {
+    "macs": 4194304, 
+    "name": "fc7", 
+    "type": "InnerProduct"
+  }, 
+  {
+    "name": "relu7", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "drop7", 
+    "type": "Dropout"
+  }, 
+  {
+    "name": "fc7_drop7_0_split", 
+    "type": "Split"
+  }, 
+  {
+    "macs": 21504, 
+    "name": "cls_score", 
+    "type": "InnerProduct"
+  }, 
+  {
+    "macs": 86016, 
+    "name": "bbox_pred", 
+    "type": "InnerProduct"
+  }, 
+  {
+    "name": "cls_prob", 
+    "type": "Softmax"
+  }
+]

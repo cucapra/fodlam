@@ -1,0 +1,230 @@
+[
+  {
+    "name": "input", 
+    "type": "Input"
+  }, 
+  {
+    "macs": 86704128, 
+    "name": "conv1_1", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu1_1", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 1849688064, 
+    "name": "conv1_2", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu1_2", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "pool1", 
+    "type": "Pooling"
+  }, 
+  {
+    "macs": 924844032, 
+    "name": "conv2_1", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu2_1", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 1849688064, 
+    "name": "conv2_2", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu2_2", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "pool2", 
+    "type": "Pooling"
+  }, 
+  {
+    "macs": 924844032, 
+    "name": "conv3_1", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu3_1", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 1849688064, 
+    "name": "conv3_2", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu3_2", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 1849688064, 
+    "name": "conv3_3", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu3_3", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "pool3", 
+    "type": "Pooling"
+  }, 
+  {
+    "macs": 924844032, 
+    "name": "conv4_1", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu4_1", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 1849688064, 
+    "name": "conv4_2", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu4_2", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 1849688064, 
+    "name": "conv4_3", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu4_3", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "pool4", 
+    "type": "Pooling"
+  }, 
+  {
+    "macs": 462422016, 
+    "name": "conv5_1", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu5_1", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 462422016, 
+    "name": "conv5_2", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu5_2", 
+    "type": "ReLU"
+  }, 
+  {
+    "macs": 462422016, 
+    "name": "conv5_3", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "relu5_3", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "conv5_3_relu5_3_0_split", 
+    "type": "Split"
+  }, 
+  {
+    "macs": 462422016, 
+    "name": "rpn_conv/3x3", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "rpn_relu/3x3", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "rpn/output_rpn_relu/3x3_0_split", 
+    "type": "Split"
+  }, 
+  {
+    "macs": 1806336, 
+    "name": "rpn_cls_score", 
+    "type": "Convolution"
+  }, 
+  {
+    "macs": 3612672, 
+    "name": "rpn_bbox_pred", 
+    "type": "Convolution"
+  }, 
+  {
+    "name": "rpn_cls_score_reshape", 
+    "type": "Reshape"
+  }, 
+  {
+    "name": "rpn_cls_prob", 
+    "type": "Softmax"
+  }, 
+  {
+    "name": "rpn_cls_prob_reshape", 
+    "type": "Reshape"
+  }, 
+  {
+    "name": "proposal", 
+    "type": "Python"
+  }, 
+  {
+    "name": "roi_pool5", 
+    "type": "ROIPooling"
+  }, 
+  {
+    "macs": 102760448, 
+    "name": "fc6", 
+    "type": "InnerProduct"
+  }, 
+  {
+    "name": "relu6", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "drop6", 
+    "type": "Dropout"
+  }, 
+  {
+    "macs": 16777216, 
+    "name": "fc7", 
+    "type": "InnerProduct"
+  }, 
+  {
+    "name": "relu7", 
+    "type": "ReLU"
+  }, 
+  {
+    "name": "drop7", 
+    "type": "Dropout"
+  }, 
+  {
+    "name": "fc7_drop7_0_split", 
+    "type": "Split"
+  }, 
+  {
+    "macs": 86016, 
+    "name": "cls_score", 
+    "type": "InnerProduct"
+  }, 
+  {
+    "macs": 344064, 
+    "name": "bbox_pred", 
+    "type": "InnerProduct"
+  }, 
+  {
+    "name": "cls_prob", 
+    "type": "Softmax"
+  }
+]
