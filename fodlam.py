@@ -144,26 +144,21 @@ def scaling_ratio(net_data, costs):
     fully-connected layers with the given cost set.
     """
     # Total numerators and denominators.
-    conv_macs = 0
-    conv_cost = 0
-    fc_macs = 0
-    fc_cost = 0
+    totals = {
+        'conv': { 'cost': 0, 'macs': 0 },
+        'fc': { 'cost': 0, 'macs': 0 },
+    }
 
     # Sum up the cost and MAC counts for each layer type.
     for net, layer_macs in net_data.items():
         for layer, macs in layer_macs.items():
             cost = costs[net, layer]
-            if is_conv(layer):
-                conv_macs += macs
-                conv_cost += cost
-            elif is_fc(layer):
-                fc_macs += macs
-                fc_cost += cost
+            kind = 'conv' if is_conv(layer) else 'fc'
+            totals[kind]['macs'] += macs
+            totals[kind]['cost'] += cost
 
     # Return ratios.
-    conv_ratio = conv_cost / conv_macs
-    fc_ratio = fc_cost / fc_macs
-    return conv_ratio, fc_ratio
+    return { k: v['cost'] / v['macs'] for k, v in totals.items() }
 
 
 def dict_product(a, b):
