@@ -189,14 +189,6 @@ def dict_product(a, b):
     return { k: v * b[k] for k, v in a.items() }
 
 
-def select_sum(keys, mapping):
-    """Sum the values in `mapping` corresponding to keys that are
-    present in `keys`. Every key in `keys` must be present in `mapping`.
-    """
-    assert set(keys) <= set(mapping)
-    return sum(v for k, v in mapping.items() if k in keys)
-
-
 def load_config(config_file):
     """Load a neural network configuration from a file-like object.
     Return a set of enabled layers, which are instances of either
