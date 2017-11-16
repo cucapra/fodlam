@@ -119,24 +119,25 @@ def norm_layer_name(name):
     return name.upper().replace('_', '-')
 
 
+def load_net(filename):
+    """Load multiply--accumulate statistics for a single network from a
+    JSON file.
+    """
+    with open(os.path.join(NETS_DIR, filename)) as f:
+        layers = json.load(f)
+
+    # Flatten the list of layer statistics dictionaries into a
+    # name-to-number mapping.
+    return { norm_layer_name(i['name']): i['macs']
+             for i in layers if 'macs' in i }
+
 def load_net_data():
     """Load statistics about the neural networks from our description
     files. Return mappings from layer names to multiply--accumulate
     counts.
     """
-    out = {}
-
-    for network, filename in NET_FILES.items():
-        with open(os.path.join(NETS_DIR, filename)) as f:
-            layers = json.load(f)
-
-        # Flatten the list of layer statistics dictionaries into a
-        # name-to-number mapping.
-        layer_info = { norm_layer_name(i['name']): i['macs']
-                       for i in layers if 'macs' in i }
-        out[network] = layer_info
-
-    return out
+    return { network: load_net(filename)
+             for network, filename in NET_FILES.items() }
 
 
 def scaling_ratios(net_data, costs):
@@ -187,9 +188,16 @@ def load_config(config_file, available_layers):
     """
     config = json.load(config_file)
     if "net" in config:
+        # A "built-in" (precise) network.
         layers = set((config["net"], n) for n in config['layers'])
         assert layers <= available_layers
         return layers
+
+    elif "netfile" in config:
+        # A "new" (scaled) network. Load the statistics for this network
+        # from its file.
+        net_stats = load_net(config["netfile"])
+
     else:
         assert False
 

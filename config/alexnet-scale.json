@@ -1,0 +1,12 @@
+{
+    "netfile": "alexnet_deploy.json",
+    "layers": [
+        "CONV1",
+        "CONV2",
+        "CONV3",
+        "CONV4",
+        "CONV5",
+        "FC6",
+        "FC7"
+    ]
+}
