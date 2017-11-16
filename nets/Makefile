@@ -8,6 +8,8 @@ all: $(NETS:%=%.json)
 clean:
 	rm -f $(NETS:%=%.prototxt) $(NETS:%=%.json)
 
+# Prototxt from the web.
+
 VGG_CNN_M_deploy.prototxt:
 	curl -LO "https://gist.githubusercontent.com/ksimonyan/f194575702fae63b2829/raw/6516d9be2064680697ee6791d8de77cfc0dd0990/VGG_CNN_M_deploy.prototxt"
 
@@ -23,13 +25,7 @@ faster_rcnn_vgg16.prototxt:
 faster_rcnn_vggm.prototxt:
 	curl -L -o $@ "https://raw.githubusercontent.com/rbgirshick/py-faster-rcnn/master/models/pascal_voc/VGG_CNN_M_1024/faster_rcnn_end2end/test.prototxt"
 
-# Conversion infrastructure.
+# Conversion tool.
 
-caffe.proto:
-	curl -LO "https://raw.githubusercontent.com/BVLC/caffe/master/src/caffe/proto/caffe.proto"
-
-%_pb2.py: %.proto
-	protoc --python_out=. $@
-
-%.json: %.prototxt caffe_pb2.py
+%.json: %.prototxt
 	python2 extract.py $< > $@
