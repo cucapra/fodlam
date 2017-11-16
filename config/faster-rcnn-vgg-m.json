@@ -1,0 +1,17 @@
+{
+    "netfile": "faster_rcnn_vggm.json",
+    "layers": [
+        "conv1",
+        "conv2",
+        "conv3",
+        "conv4",
+        "conv5",
+        "rpn_conv/3x3",
+        "rpn_cls_score",
+        "rpn_bbox_pred",
+        "fc6",
+        "fc7",
+        "cls_score",
+        "bbox_pred"
+    ]
+}
