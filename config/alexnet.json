@@ -1,11 +1,12 @@
 {
+    "net": "AlexNet",
     "layers": [
-        ["AlexNet", "CONV1"],
-        ["AlexNet", "CONV2"],
-        ["AlexNet", "CONV3"],
-        ["AlexNet", "CONV4"],
-        ["AlexNet", "CONV5"],
-        ["AlexNet", "FC6"],
-        ["AlexNet", "FC7"]
+        "CONV1",
+        "CONV2",
+        "CONV3",
+        "CONV4",
+        "CONV5",
+        "FC6",
+        "FC7"
     ]
 }

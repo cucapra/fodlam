@@ -1,18 +1,19 @@
 {
+    "net": "VGG16",
     "layers": [
-        ["VGG16", "CONV2-1"],
-        ["VGG16", "CONV2-2"],
-        ["VGG16", "CONV3-1"],
-        ["VGG16", "CONV3-2"],
-        ["VGG16", "CONV3-3"],
-        ["VGG16", "CONV4-1"],
-        ["VGG16", "CONV4-2"],
-        ["VGG16", "CONV4-3"],
-        ["VGG16", "CONV5-1"],
-        ["VGG16", "CONV5-2"],
-        ["VGG16", "CONV5-3"],
-        ["VGG16", "FC6"],
-        ["VGG16", "FC7"],
-        ["VGG16", "FC8"]
+        "CONV2-1",
+        "CONV2-2",
+        "CONV3-1",
+        "CONV3-2",
+        "CONV3-3",
+        "CONV4-1",
+        "CONV4-2",
+        "CONV4-3",
+        "CONV5-1",
+        "CONV5-2",
+        "CONV5-3",
+        "FC6",
+        "FC7",
+        "FC8"
     ]
 }

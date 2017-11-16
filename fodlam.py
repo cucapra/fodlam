@@ -185,10 +185,13 @@ def load_config(config_file, available_layers):
     Also, check that the configured layers are all available in the
     given set of layer IDs.
     """
-    config_data = json.load(config_file)
-    layers = set(tuple(l) for l in config_data['layers'])
-    assert layers <= available_layers
-    return layers
+    config = json.load(config_file)
+    if "net" in config:
+        layers = set((config["net"], n) for n in config['layers'])
+        assert layers <= available_layers
+        return layers
+    else:
+        assert False
 
 
 def load_params():

@@ -16,7 +16,12 @@ EIE provides the fully-connected layers; Eyeriss provides the convolutional laye
 Running the Model
 -----------------
 
-To specify a DNN, create a JSON file containing a dictionary with a single key, `layers`, that maps to a list of pairs of strings: the network name (`"VGG16"` or `"AlexNet"`) and the layer name. You can see examples in `config/`.
+To specify a DNN, create a JSON file containing two keys:
+
+* `net`: The name of the base network we'll be drawing layers from. This must be either `"VGG16"` or `"AlexNet"`.
+* `layers`: A list of layer names to enable.
+
+You can see examples in `config/`.
 
 Run FODLAM by piping in a configuration file, like this:
 
