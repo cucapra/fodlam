@@ -139,6 +139,33 @@ def load_net_data():
     return out
 
 
+def scaling_ratio(net_data, costs):
+    """Get the scaling ratio---the cost per MAC---for convolutional and
+    fully-connected layers with the given cost set.
+    """
+    # Total numerators and denominators.
+    conv_macs = 0
+    conv_cost = 0
+    fc_macs = 0
+    fc_cost = 0
+
+    # Sum up the cost and MAC counts for each layer type.
+    for net, layer_macs in net_data.items():
+        for layer, macs in layer_macs.items():
+            cost = costs[net, layer]
+            if is_conv(layer):
+                conv_macs += macs
+                conv_cost += cost
+            elif is_fc(layer):
+                fc_macs += macs
+                fc_cost += cost
+
+    # Return ratios.
+    conv_ratio = conv_cost / conv_macs
+    fc_ratio = fc_cost / fc_macs
+    return conv_ratio, fc_ratio
+
+
 def dict_product(a, b):
     """Pointwise-multiply the values in two dicts with identical sets of
     keys.
@@ -186,6 +213,18 @@ def load_params():
     return latency, energy, net_data
 
 
+def is_conv(name):
+    """Using a layer's name, check whether it is a convolutional layer.
+    """
+    return name.startswith('CONV')
+
+
+def is_fc(name):
+    """Check whether a layer name is of a fully-connected layer.
+    """
+    return name.startswith('FC')
+
+
 def model(config_file):
     """Run the model for a configuration given in the specified file.
     """
@@ -195,8 +234,8 @@ def model(config_file):
     layers = load_config(config_file, set(energy))
 
     # Subsets of the layers for convolutional and fully-connected layers.
-    layers_conv = set(l for l in layers if l[1].startswith('CONV'))
-    layers_fc = set(l for l in layers if l[1].startswith('FC'))
+    layers_conv = set(l for l in layers if is_conv(l[1]))
+    layers_fc = set(l for l in layers if is_fc(l[1]))
     assert layers_conv.union(layers_fc) == layers
 
     # Report total and per-layer-type sums.
@@ -235,12 +274,19 @@ def diagnose_scaled_cost(net_data, costs):
 
 
 def diagnose_scaling():
-    """Get per-MAC costs for the latency and energy of each layer.
+    """Get per-MAC costs for the latency and energy of each layer and
+    overall averages.
     """
     latency, energy, net_data = load_params()
     return {
-        'latency': diagnose_scaled_cost(net_data, latency),
-        'energy': diagnose_scaled_cost(net_data, energy),
+        'per_layer': {
+            'latency': diagnose_scaled_cost(net_data, latency),
+            'energy': diagnose_scaled_cost(net_data, energy),
+        },
+        'average': {
+            'latency': scaling_ratio(net_data, latency),
+            'latency': scaling_ratio(net_data, energy),
+        },
     }
 
 
