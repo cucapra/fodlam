@@ -194,15 +194,15 @@ def load_config(config_file):
     config = json.load(config_file)
     if "net" in config:
         # A "built-in" (precise) network.
-        return set(LookupLayer(config["net"], l) for l in config['layers'])
+        return [LookupLayer(config["net"], l) for l in config['layers']]
         return layers
 
     elif "netfile" in config:
         # A "new" (scaled) network. Load the statistics for this network
         # from its file.
         net_stats = load_net(config["netfile"])
-        return set(ScaleLayer(layer_kind(l), net_stats[l])
-                   for l in config['layers'])
+        return [ScaleLayer(layer_kind(l), net_stats[l])
+                for l in config['layers']]
 
     else:
         assert False
