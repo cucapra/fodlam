@@ -257,26 +257,25 @@ def model(config_file):
     # Load the configuration we're modeling.
     layers = load_config(config_file)
 
-    # Subsets of the layers for convolutional and fully-connected layers.
-    layers_conv = set(l for l in layers if is_conv(l.layer))
-    layers_fc = set(l for l in layers if is_fc(l.layer))
-    assert layers_conv.union(layers_fc) == layers
+    # Initialize accumulators.
+    totals = {}
+    for kind in LAYER_KINDS:
+        totals[kind] = { 'energy': 0.0, 'latency': 0.0 }
 
-    # Report total and per-layer-type sums.
-    return {
-        'total': {
-            'latency': select_sum(layers, latency),
-            'energy': select_sum(layers, energy),
-        },
-        'conv': {
-            'latency': select_sum(layers_conv, latency),
-            'energy': select_sum(layers_conv, energy),
-        },
-        'fc': {
-            'latency': select_sum(layers_fc, latency),
-            'energy': select_sum(layers_fc, energy),
-        },
+    # Add the cost for each layer.
+    for layer in layers:
+        if isinstance(layer, LookupLayer):
+            kind = layer_kind(layer.layer)
+            totals[kind]['energy'] += energy[layer]
+            totals[kind]['latency'] += latency[layer]
+
+    # Grand totals.
+    totals['total'] = {
+        'energy': sum(totals[k]['energy'] for k in LAYER_KINDS),
+        'latency': sum(totals[k]['latency'] for k in LAYER_KINDS),
     }
+
+    return totals
 
 
 def diagnose_scaled_cost(net_data, costs):
