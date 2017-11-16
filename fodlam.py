@@ -5,9 +5,11 @@ import os
 import csv
 import json
 import sys
+from collections import namedtuple
 
 # The networks that our accelerators have measurements for.
 NETWORKS = ('VGG16', 'AlexNet')
+LAYER_KINDS = ('conv', 'fc')
 
 # Accelerator data files.
 DATA_DIR = 'data'
@@ -36,6 +38,12 @@ NET_FILES = {
     'VGG16': 'VGG_ILSVRC_16_layers_deploy.json',
     'AlexNet': 'alexnet_deploy.json',
 }
+
+# Two kinds of layer specs. Lookup layers are precise; we just need to
+# look up their costs from the base data. Scale layers are
+# approximations; we need to use the average cost per MAC.
+LookupLayer = namedtuple('LookupLayer', ['net', 'layer'])
+ScaleLayer = namedtuple('ScaleLayer', ['kind', 'macs'])
 
 
 def load_hw_data():
@@ -178,26 +186,23 @@ def select_sum(keys, mapping):
     return sum(v for k, v in mapping.items() if k in keys)
 
 
-def load_config(config_file, available_layers):
+def load_config(config_file):
     """Load a neural network configuration from a file-like object.
-    Return a set of enabled layers, which are pairs of strings (the
-    network name and the layer name).
-
-    Also, check that the configured layers are all available in the
-    given set of layer IDs.
+    Return a set of enabled layers, which are instances of either
+    `LookupLayer` or `ScaleLayer`.
     """
     config = json.load(config_file)
     if "net" in config:
         # A "built-in" (precise) network.
-        layers = set((config["net"], n) for n in config['layers'])
-        assert layers <= available_layers
+        return set(LookupLayer(config["net"], l) for l in config['layers'])
         return layers
 
     elif "netfile" in config:
         # A "new" (scaled) network. Load the statistics for this network
         # from its file.
         net_stats = load_net(config["netfile"])
-        layers = set((layer_kind(l), net_stats[l]) for l in config['layers'])
+        return set(ScaleLayer(layer_kind(l), net_stats[l])
+                   for l in config['layers'])
 
     else:
         assert False
@@ -250,11 +255,11 @@ def model(config_file):
     energy_ratios = scaling_ratios(net_data, energy)
 
     # Load the configuration we're modeling.
-    layers = load_config(config_file, set(energy))
+    layers = load_config(config_file)
 
     # Subsets of the layers for convolutional and fully-connected layers.
-    layers_conv = set(l for l in layers if is_conv(l[1]))
-    layers_fc = set(l for l in layers if is_fc(l[1]))
+    layers_conv = set(l for l in layers if is_conv(l.layer))
+    layers_fc = set(l for l in layers if is_fc(l.layer))
     assert layers_conv.union(layers_fc) == layers
 
     # Report total and per-layer-type sums.
