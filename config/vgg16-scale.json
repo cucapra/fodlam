@@ -1,0 +1,21 @@
+{
+    "netfile": "VGG_ILSVRC_16_layers_deploy.json",
+    "layers": [
+        "CONV1-1",
+        "CONV1-2",
+        "CONV2-1",
+        "CONV2-2",
+        "CONV3-1",
+        "CONV3-2",
+        "CONV3-3",
+        "CONV4-1",
+        "CONV4-2",
+        "CONV4-3",
+        "CONV5-1",
+        "CONV5-2",
+        "CONV5-3",
+        "FC6",
+        "FC7",
+        "FC8"
+    ]
+}
