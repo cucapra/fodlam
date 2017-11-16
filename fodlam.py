@@ -265,9 +265,17 @@ def model(config_file):
     # Add the cost for each layer.
     for layer in layers:
         if isinstance(layer, LookupLayer):
+            # Use the built-in numbers for this layer.
             kind = layer_kind(layer.layer)
             totals[kind]['energy'] += energy[layer]
             totals[kind]['latency'] += latency[layer]
+
+        elif isinstance(layer, ScaleLayer):
+            # Scale the average costs.
+            energy = energy_ratios[layer.kind] * layer.macs
+            latency = latency_ratios[layer.kind] * layer.macs
+            totals[layer.kind]['energy'] += energy
+            totals[layer.kind]['latency'] += latency
 
     # Grand totals.
     totals['total'] = {
