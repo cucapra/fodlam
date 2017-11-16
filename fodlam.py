@@ -202,7 +202,8 @@ def load_config(config_file):
         # A "new" (scaled) network. Load the statistics for this network
         # from its file.
         net_stats = load_net(config["netfile"])
-        return [ScaleLayer(layer_kind(l), net_stats[norm_layer_name(l)])
+        return [ScaleLayer(layer_kind(norm_layer_name(l)),
+                           net_stats[norm_layer_name(l)])
                 for l in config['layers']]
 
     else:
