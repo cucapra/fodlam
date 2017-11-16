@@ -225,24 +225,12 @@ def load_params():
     return latency, energy, net_data
 
 
-def is_conv(name):
-    """Using a layer's name, check whether it is a convolutional layer.
-    """
-    return name.startswith('CONV')
-
-
-def is_fc(name):
-    """Check whether a layer name is of a fully-connected layer.
-    """
-    return name.startswith('FC')
-
-
 def layer_kind(name):
     """Return a short string indicating the kind of the named layer.
     """
-    if is_conv(name):
+    if name.startswith('CONV'):
         return 'conv'
-    elif is_fc(name):
+    elif name.startswith('FC'):
         return 'fc'
     assert False
 
