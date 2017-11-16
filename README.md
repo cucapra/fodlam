@@ -18,7 +18,9 @@ Running the Model
 
 To specify a DNN, create a JSON file containing two keys:
 
-* `net`: The name of the base network we'll be drawing layers from. This must be either `"VGG16"` or `"AlexNet"`.
+* Choose one of these two options to select a network to draw layers from:
+    * `net`: A built-in network name, either `"VGG16"` or `"AlexNet"`. FODLAM will use precise published numbers.
+    * `netfile`: The name of a JSON file in the `nets/` directory that describes any CNN. FODLAM will approximate layer costs using scaling.
 * `layers`: A list of layer names to enable.
 
 You can see examples in `config/`.
