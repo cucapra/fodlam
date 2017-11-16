@@ -205,7 +205,7 @@ def load_config(config_file):
         # A "new" (scaled) network. Load the statistics for this network
         # from its file.
         net_stats = load_net(config["netfile"])
-        return [net_stats[l] for l in config['layers']]
+        return [net_stats[norm_layer_name(l)] for l in config['layers']]
 
     else:
         assert False
