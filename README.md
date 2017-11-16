@@ -16,6 +16,8 @@ EIE provides the fully-connected layers; Eyeriss provides the convolutional laye
 Running the Model
 -----------------
 
+FODLAM is a Python 3 program. It has no other dependencies.
+
 To specify a DNN, create a JSON file containing two keys:
 
 * Choose one of these two options to select a network to draw layers from:
@@ -44,6 +46,14 @@ Run FODLAM by piping in a configuration file, like this:
     }
 
 The results are printed as JSON to stdout. The output consists of the total energy in joules and total latency in seconds. The output includes the total for the entire network, just the convolutional layers, and just the fully-connected layers.
+
+### Providing a Network
+
+FODLAM ships with statistics for a few popular neural networks as JSON files under the `nets/` directory. This JSON file describes the total computational cost of each layer in the network.
+
+To provide a new network specification, you need to produce a similar JSON file. FODLAM has a tool that can extract these statistics from Caffe models, but unlike FODLAM itself, this tool requires a working Caffe installation. (You can even use a funky hacked-up alternative versions of Caffe, such as [the one for Fast and Faster R-CNN][caffe-fast-rcnn].) See the Makefile in that directory for tips on how to extract a JSON statistics file from your network specification.
+
+[caffe-fast-rcnn]: https://github.com/rbgirshick/caffe-fast-rcnn
 
 
 How it Works
