@@ -1,0 +1,13 @@
+{
+    "netfile": "VGG_CNN_M_deploy.json",
+    "layers": [
+        "conv1",
+        "conv2",
+        "conv3",
+        "conv4",
+        "conv5",
+        "fc6",
+        "fc7",
+        "fc8"
+    ]
+}
