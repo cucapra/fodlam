@@ -154,7 +154,7 @@ def scaling_ratios(net_data, costs):
     for net, layer_macs in net_data.items():
         for layer, macs in layer_macs.items():
             cost = costs[net, layer]
-            kind = 'conv' if is_conv(layer) else 'fc'
+            kind = layer_kind(layer)
             totals[kind]['macs'] += macs
             totals[kind]['cost'] += cost
 
@@ -197,6 +197,7 @@ def load_config(config_file, available_layers):
         # A "new" (scaled) network. Load the statistics for this network
         # from its file.
         net_stats = load_net(config["netfile"])
+        layers = set((layer_kind(l), net_stats[l]) for l in config['layers'])
 
     else:
         assert False
@@ -229,6 +230,16 @@ def is_fc(name):
     """Check whether a layer name is of a fully-connected layer.
     """
     return name.startswith('FC')
+
+
+def layer_kind(name):
+    """Return a short string indicating the kind of the named layer.
+    """
+    if is_conv(name):
+        return 'conv'
+    elif is_fc(name):
+        return 'fc'
+    assert False
 
 
 def model(config_file):
