@@ -139,7 +139,7 @@ def load_net_data():
     return out
 
 
-def scaling_ratio(net_data, costs):
+def scaling_ratios(net_data, costs):
     """Get the scaling ratio---the cost per MAC---for convolutional and
     fully-connected layers with the given cost set.
     """
@@ -224,6 +224,8 @@ def model(config_file):
     """Run the model for a configuration given in the specified file.
     """
     latency, energy, net_data = load_params()
+    latency_ratios = scaling_ratios(net_data, latency)
+    energy_ratios = scaling_ratios(net_data, energy)
 
     # Load the configuration we're modeling.
     layers = load_config(config_file, set(energy))
@@ -279,8 +281,8 @@ def diagnose_scaling():
             'energy': diagnose_scaled_cost(net_data, energy),
         },
         'average': {
-            'latency': scaling_ratio(net_data, latency),
-            'latency': scaling_ratio(net_data, energy),
+            'latency': scaling_ratios(net_data, latency),
+            'energy': scaling_ratios(net_data, energy),
         },
     }
 
