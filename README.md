@@ -64,7 +64,7 @@ The assumption underlying this scaling technique is that the cost per MAC is clo
 
     $ python3 fodlam.py --diagnose
 
-FODLAM will print out the energy and latency per MAC for each layer. Notice that the cost per MAC is different for convolutional and fully-connected layers, but it varies by less than an order of magnitude within a layer type.
+FODLAM will print out the energy and latency per MAC for each layer. Notice that the cost per MAC is different for convolutional and fully-connected layers, but it varies by less than an order of magnitude within each layer type.
 
 
 Data Extraction
