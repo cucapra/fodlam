@@ -1,6 +1,7 @@
 # Network specifications from the Web.
 
-NETS := VGG_CNN_M_deploy VGG_ILSVRC_16_layers_deploy alexnet_deploy
+NETS := VGG_CNN_M_deploy VGG_ILSVRC_16_layers_deploy alexnet_deploy \
+	faster_rcnn_vgg16 faster_rcnn_vggm
 
 .PHONY: all clean
 all: $(NETS:%=%.json)
@@ -16,6 +17,11 @@ VGG_ILSVRC_16_layers_deploy.prototxt:
 alexnet_deploy.prototxt:
 	curl -L -o $@ "https://raw.githubusercontent.com/BVLC/caffe/master/models/bvlc_alexnet/deploy.prototxt"
 
+faster_rcnn_vgg16.prototxt:
+	curl -L -o $@ "https://raw.githubusercontent.com/rbgirshick/py-faster-rcnn/master/models/pascal_voc/VGG16/faster_rcnn_end2end/test.prototxt"
+
+faster_rcnn_vggm.prototxt:
+	curl -L -o $@ "https://raw.githubusercontent.com/rbgirshick/py-faster-rcnn/master/models/pascal_voc/VGG_CNN_M_1024/faster_rcnn_end2end/test.prototxt"
 
 # Conversion infrastructure.
 
