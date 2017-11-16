@@ -39,6 +39,13 @@ NET_FILES = {
     'AlexNet': 'alexnet_deploy.json',
 }
 
+# Caffe's names for layer kinds.
+CAFFE_KINDS = {
+    "InnerProduct": "fc",
+    "Convolution": "conv",
+    "Deconvolution": "conv",
+}
+
 # Two kinds of layer specs. Lookup layers are precise; we just need to
 # look up their costs from the base data. Scale layers are
 # approximations; we need to use the average cost per MAC.
@@ -128,21 +135,26 @@ def norm_layer_name(name):
 
 
 def load_net(filename):
-    """Load multiply--accumulate statistics for a single network from a
-    JSON file.
+    """Load layer statistics for a single network from a JSON file.
+    Return a mapping from layer names to ScaleLayer tuples.
     """
     with open(os.path.join(NETS_DIR, filename)) as f:
         layers = json.load(f)
 
     # Flatten the list of layer statistics dictionaries into a
     # name-to-number mapping.
-    return { norm_layer_name(i['name']): i['macs']
-             for i in layers if 'macs' in i }
+    out = {}
+    for layer in layers:
+        if 'macs' in layer:
+            name = norm_layer_name(layer['name'])
+            kind = CAFFE_KINDS[layer['type']]
+            out[name] = ScaleLayer(kind, layer['macs'])
+    return out
+
 
 def load_net_data():
     """Load statistics about the neural networks from our description
-    files. Return mappings from layer names to multiply--accumulate
-    counts.
+    files. Return mappings from layer names to ScaleLayers.
     """
     return { network: load_net(filename)
              for network, filename in NET_FILES.items() }
@@ -159,12 +171,11 @@ def scaling_ratios(net_data, costs):
     }
 
     # Sum up the cost and MAC counts for each layer type.
-    for net, layer_macs in net_data.items():
-        for layer, macs in layer_macs.items():
+    for net, layer_stats in net_data.items():
+        for layer, stats in layer_stats.items():
             cost = costs[net, layer]
-            kind = layer_kind(layer)
-            totals[kind]['macs'] += macs
-            totals[kind]['cost'] += cost
+            totals[stats.kind]['macs'] += stats.macs
+            totals[stats.kind]['cost'] += cost
 
     # Return ratios.
     return { k: v['cost'] / v['macs'] for k, v in totals.items() }
@@ -202,9 +213,7 @@ def load_config(config_file):
         # A "new" (scaled) network. Load the statistics for this network
         # from its file.
         net_stats = load_net(config["netfile"])
-        return [ScaleLayer(layer_kind(norm_layer_name(l)),
-                           net_stats[norm_layer_name(l)])
-                for l in config['layers']]
+        return [net_stats[l] for l in config['layers']]
 
     else:
         assert False
