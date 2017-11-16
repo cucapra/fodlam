@@ -169,8 +169,11 @@ def load_config(config_file, available_layers):
     return layers
 
 
-def model(config_file):
-    """Run the model for a configuration given in the specified file.
+def load_params():
+    """Load and set up all the parameters for the model.
+
+    Return the latency and energy cost mappings and the network shape
+    statistics.
     """
     # Load the hardware cost data.
     published_data = load_hw_data()
@@ -179,6 +182,14 @@ def model(config_file):
 
     # Load the network information.
     net_data = load_net_data()
+
+    return latency, energy, net_data
+
+
+def model(config_file):
+    """Run the model for a configuration given in the specified file.
+    """
+    latency, energy, net_data = load_params()
 
     # Load the configuration we're modeling.
     layers = load_config(config_file, set(energy))
@@ -205,6 +216,37 @@ def model(config_file):
     }
 
 
+def diagnose_scaled_cost(net_data, costs):
+    """Get information for diagnosing FODLAM's scaling logic for a
+    particular cost dimension.
+
+    For the given cost mapping, return the cost per MAC of each layer
+    for each model.
+    """
+    out = {}
+    for net, layer_macs in net_data.items():
+        net_costs = {}
+        for layer, macs in layer_macs.items():
+            cost = costs[net, layer]
+            cost_per_mac = cost / macs
+            net_costs[layer] = cost_per_mac
+        out[net] = net_costs
+    return out
+
+
+def diagnose_scaling():
+    """Get per-MAC costs for the latency and energy of each layer.
+    """
+    latency, energy, net_data = load_params()
+    return {
+        'latency': diagnose_scaled_cost(net_data, latency),
+        'energy': diagnose_scaled_cost(net_data, energy),
+    }
+
+
 if __name__ == '__main__':
-    out = model(sys.stdin)
+    if sys.argv[1:] and sys.argv[1] == '--diagnose':
+        out = diagnose_scaling()
+    else:
+        out = model(sys.stdin)
     print(json.dumps(out, sort_keys=True, indent=2))
