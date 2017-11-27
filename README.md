@@ -101,7 +101,15 @@ I then cleaned up the relevant data by hand. The cleaned-up CSVs that FODLAM use
 Credits
 -------
 
-This is a research artifact from [Capra][] at Cornell. The license is [MIT][].
+This is a research artifact from [Capra][] at Cornell. The license is [MIT][]. If you use FODLAM in a research paper, please cite it:
+
+    @misc{fodlam,
+      title={{FODLAM}, a first-order deep learning accelerator model},
+      author={Adrian Sampson and Mark Buckler},
+      note={\url{https://github.com/cucapra/fodlam}. Commit XXX.},
+    }
+
+You can replace that XXX with the Git commit hash for the version of FODLAM you used to help others reproduce your work.
 
 [capra]: https://capra.cs.cornell.edu
 [mit]: https://opensource.org/licenses/MIT
